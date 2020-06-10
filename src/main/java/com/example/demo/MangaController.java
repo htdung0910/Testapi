@@ -45,4 +45,8 @@ public class MangaController {
         return new ResponseEntity<>(gson.toJson("Hello"),HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/hottestMangaTest123", method = RequestMethod.GET)
+    public ResponseEntity<String> getTest123() {
+        return new ResponseEntity<>(gson.toJson("Hello123"),HttpStatus.OK);
+    }
 }
