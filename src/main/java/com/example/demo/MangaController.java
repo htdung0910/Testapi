@@ -1,12 +1,14 @@
 package com.example.demo;
 
+import com.example.demo.User.UserDAO;
+import com.example.demo.User.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +42,11 @@ public class MangaController {
         return new ResponseEntity<>(gson.toJson(imageThumnail),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/hottestMangaTest", method = RequestMethod.GET)
-    public ResponseEntity<String> getTest() {
-        return new ResponseEntity<>(gson.toJson("Hello"),HttpStatus.OK);
+    @RequestMapping(value = "/hottestMangaTest", method = RequestMethod.POST)
+    public ResponseEntity<String> getTest(@RequestParam("username") String username,@RequestParam("password") String password) throws SQLException {
+        UserDAO uDAO = new UserDAO();
+        User user = uDAO.checkLogin(username, password);
+        return new ResponseEntity<>(gson.toJson(user),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/hottestMangaTest123", method = RequestMethod.GET)
